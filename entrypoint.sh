@@ -3,8 +3,10 @@
 set -e
 
 # Replace env variables in config file
-[ $SERPOSCOPE_DB_URL ] && sed -i "s;^#serposcope.db.url=;serposcope.db.url=${SERPOSCOPE_DB_URL};g" /etc/serposcope.conf
-[ $SERPOSCOPE_DB_OPTIONS ] && sed -i "s;^#serposcope.db.options=;serposcope.db.options=${SERPOSCOPE_DB_OPTIONS};g" /etc/serposcope.conf
-[ $SERPOSCOPE_DB_DEBUG ] && sed -i "s;^#serposcope.db.debug=;serposcope.db.debug=${SERPOSCOPE_DB_DEBUG};g" /etc/serposcope.conf
+for variable in $(env | grep ^SERPOSCOPE | awk -F= '{print $1}' | grep -v SERPOSCOPE_VERSION)
+do
+  name=$(echo $variable | tr A-Z a-z | tr _ . )
+  echo "${name}=${variable}" >> /etc/serposcope.conf
+done
 
 java -Dserposcope.conf=/etc/serposcope.conf -jar /opt/serposcope.jar
