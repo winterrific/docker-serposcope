@@ -1,7 +1,7 @@
 FROM java:8u72-jre
 MAINTAINER Carles Amigó, fr3nd@fr3nd.net
 
-RUN ap-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y \
       curl \
       && rm -rf /usr/share/doc/* && \
       rm -rf /usr/share/info/* && \
