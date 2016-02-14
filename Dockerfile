@@ -15,9 +15,10 @@ RUN curl -L https://serposcope.serphacker.com/download/${SERPOSCOPE_VERSION}/ser
 RUN useradd -u 1000 -d /home/serposcope -m serposcope
 RUN chown serposcope:serposcope /var/log/serposcope /var/lib/serposcope/
 COPY serposcope.conf /etc/serposcope.conf
+COPY entrypoint.sh /entrypoint.sh
 
 EXPOSE 7134
 
 USER serposcope
 
-CMD	java -Dserposcope.conf=/etc/serposcope.conf -jar /opt/serposcope.jar
+ENTRYPOINT ["/entrypoint.sh"]
