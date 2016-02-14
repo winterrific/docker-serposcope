@@ -6,7 +6,7 @@ set -e
 for variable in $(env | grep ^SERPOSCOPE | awk -F= '{print $1}' | grep -v SERPOSCOPE_VERSION)
 do
   name=$(echo $variable | tr A-Z a-z | tr _ . )
-  echo "${name}=${variable}" >> /etc/serposcope.conf
+  echo "${name}=$( echo $variable)" >> /etc/serposcope.conf
 done
 
 java -Dserposcope.conf=/etc/serposcope.conf -jar /opt/serposcope.jar
