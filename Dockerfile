@@ -8,10 +8,10 @@ RUN apt-get update && apt-get install -y \
       rm -rf /tmp/* && \
       rm -rf /var/tmp/*
 
-ENV SERPOSCOPE_VERSION 2.6.0
+ENV SERPOSCOPE_VERSION 2.7.0
 
 RUN mkdir -p /opt/serposcope /var/log/serposcope /var/lib/serposcope/
-RUN curl -L https://serposcope.serphacker.com/download/${SERPOSCOPE_VERSION}/serposcope-${SERPOSCOPE_VERSION}.jar > /opt/serposcope.jar
+RUN curl -L https://serposcope.serphacker.com/beta/${SERPOSCOPE_VERSION}/serposcope-${SERPOSCOPE_VERSION}.jar > /opt/serposcope.jar
 RUN useradd -u 1000 -d /home/serposcope -m serposcope
 COPY serposcope.conf /etc/serposcope.conf
 RUN chown serposcope:serposcope /var/log/serposcope /var/lib/serposcope/ /etc/serposcope.conf
