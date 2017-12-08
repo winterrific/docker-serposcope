@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
       rm -rf /tmp/* && \
       rm -rf /var/tmp/*
 
-ENV SERPOSCOPE_VERSION 2.7.1
+ENV SERPOSCOPE_VERSION 2.8.0
 
 RUN mkdir -p /opt/serposcope /var/log/serposcope /var/lib/serposcope/
 RUN curl -L https://serposcope.serphacker.com/download/${SERPOSCOPE_VERSION}/serposcope-${SERPOSCOPE_VERSION}.jar > /opt/serposcope.jar
