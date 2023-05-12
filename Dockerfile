@@ -1,6 +1,6 @@
 FROM adoptopenjdk/openjdk8:debian-jre
 
-MAINTAINER Ruben Dorozala, fork of fr3nd
+MAINTAINER winterrific, fork of fr3nd
 
 RUN apt-get update && apt-get install -y \
       curl \
