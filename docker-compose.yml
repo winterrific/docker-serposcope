@@ -6,7 +6,7 @@ services:
     image: winterrific/serposcope
     restart: unless-stopped
     volumes:
-      - ./data:/var/lib/serposcope
+      - ./data:/usr/share/serposcope/
     networks:
       - default
       - traefik-public
