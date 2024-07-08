@@ -6,7 +6,7 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN wget https://www.serposcope.com/downloads/${SERPOSCOPE_VER}/serposcope_${SERPOSCOPE_VER}_amd64.deb -O serposcope.deb && \
+RUN wget https://www.serposcope.com/downloads/${SERPOSCOPE_VERSION}/serposcope_${SERPOSCOPE_VERSION}_amd64.deb -O serposcope.deb && \
     dpkg -i serposcope.deb && \
     rm serposcope.deb
 
