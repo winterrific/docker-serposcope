@@ -1,6 +1,7 @@
 FROM ubuntu:24.04
 
 RUN apt-get update && apt-get install -y \
+      curl \
       && apt-get clean cache
 
 ENV SERPOSCOPE_VERSION 3.4
