@@ -5,19 +5,23 @@ services:
     build: .
     image: winterrific/serposcope
     restart: unless-stopped
-#    ports:
-#      - 7134:7134
     volumes:
       - ./data:/var/lib/serposcope
     networks:
-      - traefik
+      - default
+      - traefik-public
     labels:
-      - traefik.http.routers.web.rule=Host(`example.com`)
-      - traefik.http.routers.web.tls=true
-      - traefik.http.routers.web.tls.certresolver=le
-      - traefik.http.routers.web.entrypoints=websecure
-      - traefik.docker.network=traefik
+      - traefik.enable=true
+      - traefik.docker.network=traefik-public
+      - traefik.constraint-label=traefik-public
+      - traefik.http.routers.serp.rule=Host(`serp.${PRIMARY_DOMAIN}`)
+      - traefik.http.routers.serp.entrypoints=websecure
+      - traefik.http.routers.serp.tls=true
+      - traefik.http.routers.serp.tls.certresolver=le
+      - traefik.http.services.serp.loadbalancer.server.port=6333
 
 networks:
-  traefik:
+  traefik-public:
     external: true
+  default:
+    external: false

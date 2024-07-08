@@ -1,24 +1,18 @@
-FROM adoptopenjdk/openjdk8:debian-jre
-
-MAINTAINER winterrific, fork of fr3nd
+FROM ubuntu:24.04
 
 RUN apt-get update && apt-get install -y \
-      curl \
-      && rm -rf /usr/share/doc/* && \
-      rm -rf /usr/share/info/* && \
-      rm -rf /tmp/* && \
-      rm -rf /var/tmp/*
+      && apt-get clean cache
 
-ENV SERPOSCOPE_VERSION 2.15.0
+ENV SERPOSCOPE_VERSION 3.4
 
 RUN mkdir -p /opt/serposcope /var/log/serposcope /var/lib/serposcope/
-RUN curl -L https://serposcope.serphacker.com/download/${SERPOSCOPE_VERSION}/serposcope-${SERPOSCOPE_VERSION}.jar > /opt/serposcope.jar
+RUN curl -L https://www.serposcope.com/downloads/${SERPOSCOPE_VERSION}/serposcope_${SERPOSCOPE_VERSION}_amd64.deb
+RUN dpkg -i serposcope_${SERPOSCOPE_VERSION}_amd64.deb
 RUN useradd -u 1000 -d /home/serposcope -m serposcope
-COPY serposcope.conf /etc/serposcope.conf
 RUN chown serposcope:serposcope /var/log/serposcope /var/lib/serposcope/ /etc/serposcope.conf
 COPY entrypoint.sh /usr/local/bin/
 
-EXPOSE 7134
+EXPOSE 6333
 
 USER serposcope
 
