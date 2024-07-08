@@ -1,14 +1,28 @@
 FROM ubuntu:24.04
-
-RUN apt-get update && apt-get install -y \
-      curl \
-      && apt-get clean cache
-
 ENV SERPOSCOPE_VERSION 3.4
 
-RUN mkdir -p /opt/serposcope /var/log/serposcope /var/lib/serposcope/
-RUN curl -L -O https://www.serposcope.com/downloads/${SERPOSCOPE_VERSION}/serposcope_${SERPOSCOPE_VERSION}_amd64.deb
-RUN dpkg -i serposcope_${SERPOSCOPE_VERSION}_amd64.deb
-COPY entrypoint.sh /usr/local/bin/
+RUN apt-get update && \
+    apt-get install -y wget && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
+RUN wget https://www.serposcope.com/downloads/${SERPOSCOPE_VER}/serposcope_${SERPOSCOPE_VER}_amd64.deb -O serposcope.deb && \
+    dpkg -i serposcope.deb && \
+    rm serposcope.deb
+
+COPY application.conf /usr/share/serposcope
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+WORKDIR /usr/share/serposcope/
+
+RUN mkdir -p ./db && \
+    chown -R serposcope:serposcope ./db
+
+VOLUME ["/usr/share/serposcope/db"]
 EXPOSE 6333
+USER root
+
+ENTRYPOINT ["/entrypoint.sh"]
+
+
