@@ -13,6 +13,4 @@ COPY entrypoint.sh /usr/local/bin/
 
 EXPOSE 6333
 
-USER serposcope
-
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
