@@ -16,8 +16,7 @@ RUN chmod +x /entrypoint.sh
 
 WORKDIR /usr/share/serposcope/
 
-RUN mkdir -p ./db && \
-    chown -R serposcope:serposcope ./db
+RUN mkdir -p ./db
 
 VOLUME ["/usr/share/serposcope/db"]
 EXPOSE 6333
