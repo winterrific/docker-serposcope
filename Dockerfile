@@ -12,5 +12,3 @@ RUN dpkg -i serposcope_${SERPOSCOPE_VERSION}_amd64.deb
 COPY entrypoint.sh /usr/local/bin/
 
 EXPOSE 6333
-
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
