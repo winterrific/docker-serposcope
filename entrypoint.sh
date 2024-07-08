@@ -1,3 +1,3 @@
 #!/bin/sh
 
-systemctl start serposcope
+service start serposcope
