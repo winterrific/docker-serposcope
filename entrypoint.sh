@@ -1,3 +1,3 @@
 #!/bin/sh
 
-service start serposcope
+echo "start..."
